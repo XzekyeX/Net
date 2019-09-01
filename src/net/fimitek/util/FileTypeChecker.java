@@ -88,7 +88,6 @@ public class FileTypeChecker {
 	}
 
 	public static void checkFileTypesAndRename(File folder) {
-		// File folder = new File("G:/9.2/old wind/masaa/local/chrome/Default/Cache");
 		File[] files = folder.listFiles();
 		System.out.println("files: " + files.length);
 		// List<String> res = new ArrayList<String>();
