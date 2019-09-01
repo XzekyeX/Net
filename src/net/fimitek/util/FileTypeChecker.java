@@ -65,7 +65,7 @@ public class FileTypeChecker {
 	}
 
 	public static void moveFileAndCheckFileType(File from, File to) {
-		if (/* file.getName().startsWith("f_") && */ !(from.getName().endsWith(".png") || from.getName().endsWith(".jpg") || from.getName().endsWith(".gif") || from.getName().endsWith(".mp4") || from.getName().endsWith(".webp") || from.getName().endsWith(".html") || from.getName().endsWith(".woff"))) {
+		if (/* file.getName().startsWith("f_") && */ !(from.getName().endsWith(".png") || from.getName().endsWith(".jpg") || from.getName().endsWith(".gif") || from.getName().endsWith(".mp4") || from.getName().endsWith(".webp") || from.getName().endsWith(".html") || from.getName().endsWith(".pdf") || from.getName().endsWith(".woff"))) {
 			String line = readFileFirstLine(from);
 			if (line.contains("PNG")) {
 				renameFileTo(from, to, ".png");
@@ -81,6 +81,8 @@ public class FileTypeChecker {
 				renameFileTo(from, to, ".html");
 			} else if (line.contains("wOF2")) {
 				renameFileTo(from, to, ".woff");
+			} else if (line.contains("PDF")) {
+				renameFileTo(from, to, ".pdf");
 			}
 		} else {
 			moveFileTo(from, to);
@@ -97,7 +99,7 @@ public class FileTypeChecker {
 					// res.add(file.getName());
 				} else {
 					System.out.println(file.getName());
-					if (/* file.getName().startsWith("f_") && */ !(file.getName().endsWith(".png") || file.getName().endsWith(".jpg") || file.getName().endsWith(".gif") || file.getName().endsWith(".mp4") || file.getName().endsWith(".webp") || file.getName().endsWith(".html") || file.getName().endsWith(".woff"))) {
+					if (/* file.getName().startsWith("f_") && */ !(file.getName().endsWith(".png") || file.getName().endsWith(".jpg") || file.getName().endsWith(".gif") || file.getName().endsWith(".mp4") || file.getName().endsWith(".webp") || file.getName().endsWith(".html") || file.getName().endsWith(".pdf")|| file.getName().endsWith(".woff"))) {
 						String line = readFileFirstLine(file);
 						if (line.contains("PNG")) {
 							renameFile(file, ".png");
@@ -113,6 +115,8 @@ public class FileTypeChecker {
 							renameFile(file, ".html");
 						} else if (line.contains("wOF2")) {
 							renameFile(file, ".woff");
+						} else if (line.contains("PDF")) {
+							renameFile(file, ".pdf");
 						}
 					}
 				}
