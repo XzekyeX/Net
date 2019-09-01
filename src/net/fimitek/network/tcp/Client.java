@@ -201,7 +201,7 @@ public class Client extends Network implements Runnable {
 
 	private void ServerBaseRootPacket(ContainerObject co) {
 		List<Container> roots = co.getAll("Root");
-		System.out.println("roots:" + roots);
+		ServerInfo.println("Roots:" + roots);
 		DefaultMutableTreeNode base_root = new DefaultMutableTreeNode();
 		for (Container root : roots) {
 			ContainerObject root_obj = ContainerObject.to(root);
