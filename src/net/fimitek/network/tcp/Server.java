@@ -74,7 +74,7 @@ public class Server implements Runnable {
 					}
 				}
 			});
-			
+
 			ServerInfo.println("Server has been started on port: " + port);
 			return true;
 		} catch (IOException e) {
@@ -84,18 +84,24 @@ public class Server implements Runnable {
 	}
 
 	private void download(ActionEvent e) {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) ServerInfo.getTree().getLastSelectedPathComponent();
-		if (node == null || gui.getSelected() == null) return;
-		Object nodeInfo = node.getUserObject();
-		if (node.isLeaf()) {
-			if (nodeInfo instanceof FileNode) {
-				FileNode fn = (FileNode) nodeInfo;
-				if (fn != null) {
-					ContainerObject obj = new ContainerObject("File");
-					String data = fn.getPath();
-					obj.add(new StringField("Path", data));
-					gui.getSelected().send(obj);
-					ServerInfo.println("[SERVER]: " + obj + " -> " + gui.getSelected());
+		// DefaultMutableTreeNode node = (DefaultMutableTreeNode) ServerInfo.getTree().getLastSelectedPathComponent();
+		TreePath[] paths = ServerInfo.getTree().getSelectionPaths();
+		if (paths != null) {
+			for (TreePath p : paths) {
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) p.getLastPathComponent();
+				if (node == null || gui.getSelected() == null) return;
+				Object nodeInfo = node.getUserObject();
+				if (node.isLeaf()) {
+					if (nodeInfo instanceof FileNode) {
+						FileNode fn = (FileNode) nodeInfo;
+						if (fn != null) {
+							ContainerObject obj = new ContainerObject("File");
+							String data = fn.getPath();
+							obj.add(new StringField("Path", data));
+							gui.getSelected().send(obj);
+							ServerInfo.println("[SERVER]: " + obj + " -> " + gui.getSelected());
+						}
+					}
 				}
 			}
 		}
