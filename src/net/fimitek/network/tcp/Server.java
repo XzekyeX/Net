@@ -48,6 +48,7 @@ public class Server implements Runnable {
 			gui = new ServerGui();
 			gui.getTF().addActionListener((e) -> send(e));
 			gui.getBtnDownload().addActionListener((e) -> download(e));
+//			gui.getBtnLastFolder().addActionListener((e) -> lastfolder(e));
 			ServerInfo.getTree().addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					int selRow = ServerInfo.getTree().getRowForLocation(e.getX(), e.getY());
@@ -61,11 +62,17 @@ public class Server implements Runnable {
 									DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
 									if (node != null && gui.getSelected() != null) {
 										boolean isFile = (node.getUserObject() instanceof FileNode);
-										if (!isFile && ((DefaultMutableTreeNode) ServerInfo.getTree().getModel().getRoot()).getFirstChild() != node) {
-											ContainerObject obj = new ContainerObject("Root");
-											obj.add(new StringField("Path", node.toString()));
-											gui.getSelected().send(obj);
-											ServerInfo.println("Root: " + obj);
+										DefaultMutableTreeNode n = ((DefaultMutableTreeNode) ServerInfo.getTree().getModel().getRoot());
+										if (n != null && n.children().hasMoreElements()) {
+											if (!isFile && n.getFirstChild() != node) {
+												ContainerObject obj = new ContainerObject("Root");
+												obj.add(new StringField("Path", node.toString()));
+												gui.getSelected().send(obj);
+//												gui.setLastFolder();
+												// ServerInfo.println("Root: " + obj);
+											}
+										} else {
+											ServerInfo.println("Node has no children!");
 										}
 									}
 								}
@@ -82,6 +89,12 @@ public class Server implements Runnable {
 		}
 		return false;
 	}
+
+//	private void lastfolder(ActionEvent e) {
+//		if (gui.getSelected() != null) {
+//			gui.getTF().setText("Root Path \"" + gui.getBtnLastFolder().getText() + "\"");
+//		}
+//	}
 
 	private void download(ActionEvent e) {
 		// DefaultMutableTreeNode node = (DefaultMutableTreeNode) ServerInfo.getTree().getLastSelectedPathComponent();

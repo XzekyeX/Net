@@ -43,6 +43,7 @@ public class ServerGui extends JFrame {
 	private JLabel lblSelected = new JLabel("Selected: ");
 	private Client selectedClient;
 	private JButton btnDownload = new JButton("Download");
+//	private JButton btnLF = new JButton("Last Folder");
 	private JProgressBar progressBar = new JProgressBar();
 
 	/**
@@ -71,6 +72,7 @@ public class ServerGui extends JFrame {
 
 		JPanel panel_1 = new JPanel();
 		online_panel.add(panel_1, BorderLayout.NORTH);
+//		panel_1.add(btnLF,BorderLayout.NORTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_1.add(lblSelected);
 
@@ -86,19 +88,21 @@ public class ServerGui extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				selectedClient = online.getSelectedValue();
 				setSelectedText("" + selectedClient);
+//				btnLF.setVisible(true);
 			}
 		});
 		online.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					if(selectedClient != null) {
+					if (selectedClient != null) {
 						ContainerObject obj = new ContainerObject("RootBase");
 						selectedClient.send(obj);
 					}
 				}
 			}
 		});
+
 		sp1.setViewportView(online);
 
 		JPanel info_panel = new JPanel();
@@ -186,6 +190,10 @@ public class ServerGui extends JFrame {
 		lblSelected.setText("Selected: " + text);
 	}
 
+//	public void setLastFolder(String text) {
+//		btnLF.setText(text);
+//	}
+
 	public Client getSelected() {
 		return selectedClient;
 	}
@@ -201,4 +209,8 @@ public class ServerGui extends JFrame {
 	public JProgressBar getProgressBar() {
 		return progressBar;
 	}
+
+//	public JButton getBtnLastFolder() {
+//		return btnLF;
+//	}
 }

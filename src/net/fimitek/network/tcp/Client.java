@@ -48,6 +48,8 @@ public class Client extends Network implements Runnable {
 	protected long time;
 	private Thread retry;
 	private UpdateUI ui;
+	
+//	protected String lastFolder = "";
 
 	public Client(Socket socket, int id) {
 		this.socket = socket;
@@ -201,12 +203,14 @@ public class Client extends Network implements Runnable {
 
 	private void ServerBaseRootPacket(ContainerObject co) {
 		List<Container> roots = co.getAll("Root");
-		ServerInfo.println("Roots:" + roots);
+//		ServerInfo.println("Rootss:" + roots);
 		DefaultMutableTreeNode base_root = new DefaultMutableTreeNode();
 		for (Container root : roots) {
 			ContainerObject root_obj = ContainerObject.to(root);
 			if (root_obj != null) {
 				String root_name = getString(root_obj, "RootFolder");
+//				this.lastFolder = root_name;
+//				System.out.println("Root name: " + root_name);
 				DefaultMutableTreeNode root_node = new DefaultMutableTreeNode(root_name);
 				ContainerObject root_folder_sub = ContainerObject.to(root_obj.get("RootFolderSub"));
 				if (root_folder_sub != null) {
@@ -394,6 +398,10 @@ public class Client extends Network implements Runnable {
 	public String getUsername() {
 		return username == null ? "Client" + getID() : username;
 	}
+	
+//	public String getLastFolder() {
+//		return lastFolder;
+//	}
 
 	@Override
 	public String toString() {
